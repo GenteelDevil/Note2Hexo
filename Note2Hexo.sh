@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# == "0" ]; then
+    echo "[!] No file name"
+    exit
+fi
+
 # 读取文件
 blog_path="~/Blog/source/_posts/"
 blog_pic_path="~/Blog/source/images/"
@@ -15,15 +20,24 @@ echo "[*] copy picture from $loc_pic_path to $blog_path"
 eval "cp -r $loc_pic_path $blog_pic_path/"
 
 # 添加头属性
+
+last_modify_timestamp=$(eval "stat -c %Y $1")
+format_date=$(eval "date '+%Y-%m-%d\ %H:%M:%S' -d @$last_modify_timestamp")
 head=(
-    "---"
-    "title: $1"
-    "date: 2021-06-15 17:01:37"
-    "categories:"
-    "tags:"
+    '---'
+    'title: '$1
+    "date:$format_date"
+    'categories:'
+    'tags:'
+    '---'
 )
 
+# eval "sed -i '1i\\\\n' $blog_path$1"
+IFS=$'\n'
 for line in ${head[*]}
 do 
-    eval "sed -i '1i\$line' $blog_path$1"
+    echo $line
+    eval "sed -i "1i\\$line" $blog_path$1"
 done
+unset IFS 
+# 修改文章中的图片链接
