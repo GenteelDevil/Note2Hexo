@@ -28,5 +28,14 @@ for pic in pics:
     shutil.copyfile(loc_pic_name + pic, blog_pic_path + pic)
 
 # 添加文件头
-
+file_create_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(os.stat(loc_file_name).st_ctime))
+head_start = "---\ntitle: %s\ndate: %s" % (loc_file_name.split('.')[0], file_create_time)
+categories = "\ncategories:"
+for each in input("Categories: ").split(' ') : 
+    categories += "\n- %s " % each
+tags = "\ntags:"
+for each in input("tags: ").split(' '):
+    tags += "\n- %s" % each
+head_end = "\n---\n"
+print(head_start + categories + tags + head_end)
 # 修改图片链接
