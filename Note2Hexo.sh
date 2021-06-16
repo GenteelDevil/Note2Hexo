@@ -16,7 +16,7 @@ loc_pic_path="./.$1/"
 # 移动图片
 echo "[*] copy file from $loc_file_name to $blog_path$1"
 eval "cp $loc_file_name $blog_path"
-echo "[*] copy picture from $loc_pic_path to $blog_path"
+echo "[*] copy picture from $loc_pic_path to $blog_path""images"
 eval "cp -r $loc_pic_path $blog_pic_path/"
 
 # 添加头属性
@@ -32,7 +32,7 @@ head=(
     '---'
 )
 
-# eval "sed -i '1i\\\\n' $blog_path$1"
+eval "sed -i '1i\\\\n' $blog_path$1"
 IFS=$'\n'
 for line in ${head[*]}
 do 
@@ -40,4 +40,11 @@ do
     eval "sed -i "1i\\$line" $blog_path$1"
 done
 unset IFS 
-# 修改文章中的图片链接
+
+# 修改图片链接
+# 1 获取文章中所有的图片超链接
+eval "cat $blog_path$1" | while read line
+do 
+    echo $line
+done
+# 2 修改超链接名字
