@@ -1,7 +1,9 @@
+# -*- coding:utf-8 -*-
 import time
 import shutil
 import sys
 import os
+import re
 
 if len(sys.argv) <= 1:
     print("Please input filename\n")
@@ -37,5 +39,15 @@ tags = "\ntags:"
 for each in input("tags: ").split(' '):
     tags += "\n- %s" % each
 head_end = "\n---\n"
-print(head_start + categories + tags + head_end)
+head = head_start + categories + tags + head_end
+
 # 修改图片链接
+file_new = ""
+file_new += head
+with open(blog_file_path, "r") as f:
+    for line in f:        
+        # print(line)
+        file_new += re.sub("(?<=\]\()\..*?\/", "/images/", line)
+# print(file_new)
+            
+
