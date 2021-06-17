@@ -12,11 +12,11 @@ if len(sys.argv) <= 1:
 work_dir = os.getcwd()
 
 loc_file_name = sys.argv[1]
-loc_pic_name = "." + sys.argv[1] + "/"
+loc_pic_name = "." + sys.argv[1].split('.')[0] + "/"
 print(loc_file_name)
 print(loc_pic_name)
 
-blog_file_path = '/home/oneshell/Blog/source/_posts' + loc_file_name
+blog_file_path = '/home/oneshell/Blog/source/_posts/' + loc_file_name
 blog_pic_path = '/home/oneshell/Blog/source/images/'
 
 # 复制文件和图片
@@ -48,6 +48,8 @@ with open(blog_file_path, "r") as f:
     for line in f:        
         # print(line)
         file_new += re.sub("(?<=\]\()\..*?\/", "/images/", line)
+with open(blog_file_path, 'w') as f:
+    f.write(file_new)
 # print(file_new)
             
 
