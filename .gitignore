@@ -1,7 +1,3 @@
-test.md
-.vscode/settings.json
-f2.log
-f1.log
-.test.md/pic1.img
-.test.md/pic1.jpg
+.vscode/*
 venv/*
+source/*
